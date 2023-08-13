@@ -402,21 +402,42 @@ article img {
     background-color: rgba(0,0,0,0.8);
 }
 
-.placeholder-container {
+/* Data Visualisation Styles */
+.data-vis-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80vh; /* Adjust as needed */
+    height: 80vh;
     text-align: center;
 }
 
-.placeholder-container h1 {
+.data-vis-header h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
 }
 
-.placeholder-container p {
+.data-vis-header p {
+    font-size: 1.2rem;
+    color: gray;
+}
+
+/* Data Art Styles */
+.data-art-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    text-align: center;
+}
+
+.data-art-header h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.data-art-header p {
     font-size: 1.2rem;
     color: gray;
 }
