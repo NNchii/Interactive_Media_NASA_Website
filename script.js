@@ -1,12 +1,12 @@
-// Function to adjust the background based on scroll position
+
 function adjustBackground() {
     const scrollPercentage = window.pageYOffset / window.innerHeight;
-    const newBackgroundColor = `rgba(0, 4, 40, ${scrollPercentage})`; // This will transition from deep space blue to black based on scroll
+    const newBackgroundColor = `rgba(0, 4, 40, ${scrollPercentage})`; 
 
     document.body.style.backgroundColor = newBackgroundColor;
 }
 
-// Add event listener to window for scroll event
+
 window.addEventListener('scroll', adjustBackground);
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Fetching NASA data and populating the slideshow
+
 fetch('https://images-api.nasa.gov/search?q=earth')
     .then(response => response.json())
     .then(data => {
@@ -44,9 +44,9 @@ function displayNasaData(data) {
     const dotsContainer = document.querySelector('div[style="text-align:center"]');
 
     data.collection.items.forEach((item, index) => {
-        // Check if the item has the links property and it's not empty
+        
         if (!item.links || !item.links.length) {
-            return; // Skip this item and move to the next one
+            return; 
         }
 
         const slide = document.createElement('div');
@@ -69,7 +69,7 @@ function displayNasaData(data) {
 
 
 function currentSlide(n) {
-    // Adjust the slideIndex based on the clicked dot
+   
     slideIndex = (slideIndex + n) % 3;
     if (slideIndex < 1) {
         slideIndex = 3;
@@ -89,7 +89,7 @@ function showSlides() {
     const slides = document.getElementsByClassName("slide");
     const dots = document.getElementsByClassName("dot");
 
-    // Wrap around if slideIndex goes out of bounds
+   
     if (slideIndex > slides.length) {
         slideIndex = 1;
     } else if (slideIndex < 1) {

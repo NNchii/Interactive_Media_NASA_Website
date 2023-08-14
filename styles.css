@@ -1,54 +1,54 @@
 body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(to bottom, #000428, #004e92); /* Deep space blue to black gradient */
-    color: #ffffff; /* White text for contrast */
-    font-family: 'Poppins', sans-serif; /* Modern and clean font */
+    background: linear-gradient(to bottom, #000428, #004e92); 
+    color: #ffffff; 
+    font-family: 'Poppins', sans-serif; 
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 60px); /* Ensure it's at least the height of the viewport minus navbar */
+    min-height: calc(100vh - 60px); 
     align-items: center;
-    justify-content: flex-start; /* Align content to the top */
-    height: auto; /* Allow the body to grow with the content */
-    padding-top: 60px; /* Space for the nav bar */
+    justify-content: flex-start; 
+    height: auto; 
+    padding-top: 60px; 
     background-image: linear-gradient(to bottom, rgba(0, 46, 77, 0.8), rgba(0, 0, 0, 1)), url('/images/408307-simple-background-minimalism-Earth-space-black-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-attachment: fixed; /* This will make the background fixed while the content scrolls */
+    background-attachment: fixed; 
     transition: background-color 0.3s ease;
-    padding: 2rem 0; /* Add padding to the top and bottom */
-    text-align: center; /* Center the text */
+    padding: 2rem 0; 
+    text-align: center; 
 }
 
 #home {
-    padding-top: 60px; /* Space to prevent clipping with the navbar */
+    padding-top: 60px; 
 }
 
 .spacer {
-    height: 50px; /* Adjust as needed */
+    height: 50px; 
 }
 
-/* Horizontal Placards */
+
 .page-description-container {
     display: flex;
-    justify-content: space-around; /* Adjusted to space-around for equal spacing */
+    justify-content: space-around; 
     flex-wrap: wrap;
     gap: 20px;
-    width: 90%; /* Set a width to prevent touching the edges */
-    margin: 0 auto; /* Center the container */
+    width: 90%; 
+    margin: 0 auto; 
     margin-top: 100px;
     margin-bottom: 100px;
 }
 
 .page-description {
     flex: 1;
-    min-width: 200px; /* Minimum width for each placard */
+    min-width: 200px; 
     min-height: 200px;
     margin-top: 2rem;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 1rem;
-    border-radius: 10px; /* Rounded corners */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+    border-radius: 10px; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 
 .blog {
@@ -59,7 +59,7 @@ body {
     background-color: rgba(92, 92, 92, 0.445);
 }
 
-/* Design placard background */
+
 .design {
     background-image: url('/images/1145374.jpg');
     background-size: cover;
@@ -68,7 +68,7 @@ body {
     background-color: rgba(92, 92, 92, 0.445);
 }
 
-/* Data-Visualisations placard background */
+
 .data-visualisations {
     background-image: url('/images/2100304.jpg');
     background-size: cover;
@@ -77,7 +77,7 @@ body {
     background-color: rgba(92, 92, 92, 0.445);
 }
 
-/* Data-Art placard background */
+
 .data-art {
     background-image: url('/images/1145564.jpg');
     background-size: cover;
@@ -87,35 +87,35 @@ body {
 }
 
 .page-description:hover {
-    transform: translateY(-10px); /* Slight upward movement on hover */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    transform: translateY(-10px); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
 }
 
 h1 {
-    font-size: 3rem; /* Larger font size for the title */
+    font-size: 3rem; 
     text-align: center;
     margin-bottom: 20px;
 }
 
 p {
-    text-align: center; /* Ensure text is centered */
-    max-width: 100%; /* Allow the paragraph to take the full width */
-    margin: 0 auto; /* Center block elements */
+    text-align: center; 
+    max-width: 100%; 
+    margin: 0 auto; 
     margin-bottom: 1.5rem;
 }
 
 nav {
     display: flex;
-    justify-content: flex-start; /* Aligns items to the start of the container */
-    gap: 1rem; /* Space between the logo and the links */
+    justify-content: flex-start; 
+    gap: 1rem; 
     padding: 1rem 5%;
-    position: fixed; /* Fixed position to keep it at the top */
+    position: fixed; 
     top: 0;
-    background-color: rgba(0, 0, 0, 0.8); /* Slight transparency to the navbar */
-    width: 100%; /* Full width */
-    z-index: 1000; /* Ensure it stays above other content */
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)); /* Subtle gradient */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+    background-color: rgba(0, 0, 0, 0.8); 
+    width: 100%; 
+    z-index: 1000; 
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 nav a {
@@ -123,26 +123,26 @@ nav a {
     text-decoration: none;
     color: #ffffff;
     transition: color 0.3s ease;
-    font-size: 1.1rem; /* Slightly larger font size */
-    padding: 0.5rem 1rem; /* Padding for a larger clickable area */
-    border-radius: 5px; /* Rounded corners for hover effect */
+    font-size: 1.1rem; 
+    padding: 0.5rem 1rem; 
+    border-radius: 5px; 
 }
 
 nav a:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Slight white transparency on hover */
+    background-color: rgba(255, 255, 255, 0.1); 
 }
 
 .links-container {
-    display: flex; /* Using flexbox for the links */
-    gap: 2rem; /* Space between links */
+    display: flex; 
+    gap: 2rem; 
 }
 
 .logo {
-    height: 40px; /* Adjust based on your logo's size */
-    width: auto; /* Maintain aspect ratio */
+    height: 40px; 
+    width: auto; 
 }
 
-/* Adjustments for the links to ensure they are on either side of the logo */
+
 nav a:nth-child(1), nav a:nth-child(2) {
     order: 1;
 }
@@ -156,18 +156,18 @@ footer {
     background-color: rgba(0, 0, 0, 0.9);
     text-align: center;
     width: 100%;
-    margin-top: 2rem; /* Push the footer down */
+    margin-top: 2rem; 
 }
 
 footer a {
     margin: 0 0.5rem;
     text-decoration: none;
-    color: #a885d8; /* Soft nebula purple for links */
+    color: #a885d8; 
 }
 
 footer p {
-    text-align: center; /* Ensure footer text is centered */
-    margin: 0 auto; /* Center block elements */
+    text-align: center; 
+    margin: 0 auto; 
 }
 
 footer a:hover {
@@ -175,36 +175,36 @@ footer a:hover {
 }
 
 .main {
-    width: 100%; /* Full width */
+    width: 100%; 
     max-width: 1200px;
-    margin: 0 auto; /* Center the main content horizontally */
+    margin: 0 auto; 
 }
 
 .interactive-section {
     margin-top: 2rem;
-    background-color: rgba(255, 255, 255, 0.1); /* Slight white transparency for distinction */
+    background-color: rgba(255, 255, 255, 0.1); 
     padding: 1rem;
-    border-radius: 10px; /* Rounded corners */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+    border-radius: 10px; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
     margin-bottom: 100px;
 }
 
 .interactive-section:hover {
-    transform: translateY(-10px); /* Slight upward movement on hover */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    transform: translateY(-10px); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .interactive-content {
-    /* Styles for the content area of each interactive section */
-    height: 200px; /* Placeholder height, adjust as needed */
+    
+    height: 200px; 
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .interactive-section p {
-    text-align: center; /* Ensure interactive section text is centered */
-    margin: 0 auto; /* Center block elements */
+    text-align: center;
+    margin: 0 auto; 
 }
 
 .timeline {
@@ -289,17 +289,17 @@ footer a:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: start; /* Ensures articles start at the same vertical position */
+    align-items: start;
     width: 100%;
 }
 
 article {
-    flex: 0 0 48%; /* This ensures the article takes up 48% of the container's width */
+    flex: 0 0 48%;
     margin-bottom: 2rem;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 1rem;
     border-radius: 10px;
-    box-sizing: border-box; /* Ensures padding and border are included in the total width */
+    box-sizing: border-box; 
 }
 
 
@@ -318,7 +318,7 @@ article img {
 }
 
 .nasa-item {
-    width: calc(20% - 20px); /* 5 items per row with a gap of 20px */
+    width: calc(20% - 20px); 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
@@ -339,9 +339,11 @@ article img {
 
 .slideshow-container {
     max-width: 1000px;
-    height: 450px; /* Add this line */
+    height: 450px;
     position: relative;
     margin: auto;
+    margin-bottom: 300px;
+    margin-top: 200px;
 }
 
 .slide {
@@ -362,7 +364,7 @@ article img {
     border-radius: 5px;
 }
 
-/* Navigation dots */
+
 .dot {
     height: 15px;
     width: 15px;
@@ -377,7 +379,7 @@ article img {
     background-color: #717171;
 }
 
-/* Navigation buttons */
+
 .prev, .next {
     cursor: pointer;
     position: absolute;
@@ -402,7 +404,7 @@ article img {
     background-color: rgba(0,0,0,0.8);
 }
 
-/* Data Visualisation Styles */
+
 .data-vis-container {
     display: flex;
     flex-direction: column;
@@ -441,3 +443,49 @@ article img {
     font-size: 1.2rem;
     color: gray;
 }
+
+.design-body {
+    font-family: 'Arial', sans-serif;
+    background-color: #020c1b;
+    color: #e0e0e0;
+    padding: 20px;
+}
+
+.design-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.design-section h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #f5a623;
+}
+
+.content-box {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-left: 4px solid #f5a623;
+}
+
+.content-box h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.content-box h3 {
+    font-size: 1.5em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.content-box p {
+    font-size: 1em;
+    line-height: 1.5;
+}
+
