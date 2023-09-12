@@ -4,21 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Art</title>
+    <meta name="description" content="Explore space data with NASA's rich data repository.">
+    <meta name="keywords" content="NASA, Space, Data, Astronomy, Solar System">
+    <meta name="author" content="Lucien Zhang">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <title>Space Data by NASA</title>
+</head>
 </head>
 
 <body>
     <nav>
-        <nav>
-            <img src="./images/Picsart_23-08-13_23-56-39-698.png" alt="SpaceData Logo" class="logo">
-            <div class="links-container">
-                <a href="blog.html">Blog</a>
-                <a href="design.html">Design</a>
-                <a href="data-visualisations.html">Data-Visualisations</a>
-                <a href="index.html">Home</a>
-            </div>
-        </nav>
+        <img src="./images/Picsart_23-08-13_23-56-39-698.png" alt="SpaceData Logo" class="logo"> 
+        <ul class="links-container">
+            <li class="navText nav-link" onclick="navigateTo('index.html')">Home</li>
+            <li class="navText nav-link" onclick="navigateTo('blog.html')">Blogs</li>
+            <li class="navText nav-link" onclick="navigateTo('design.html')">Design</li>
+            <li class="navText nav-link" onclick="navigateTo('data-visualisations.html')">Data-Visualisation</li>
+            <li class="navText nav-link" onclick="navigateTo('data-art.html')">Data-Art</li>
+        </ul>
     </nav>
 
     <main class="data-art-container">
@@ -33,6 +37,7 @@
         <p>&copy; 2023 Space Data by NASA. All rights reserved.</p>
         <a href="#terms">Terms of Service</a> | <a href="#privacy">Privacy Policy</a>
     </footer>
+    <button id="scrollToTopBtn" class="scroll-to-top-btn">&#8593;</button>
+    <script src="script.js"></script>
 </body>
-
 </html>

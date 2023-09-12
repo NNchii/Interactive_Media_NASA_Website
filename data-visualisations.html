@@ -4,35 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Visualisation</title>
+    <meta name="description" content="Explore space data with NASA's rich data repository.">
+    <meta name="keywords" content="NASA, Space, Data, Astronomy, Solar System">
+    <meta name="author" content="Lucien Zhang">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <title>Data Visualisation</title>
 </head>
 
 <body>
     <nav>
-        <nav>
-            <img src="/images/Picsart_23-08-13_23-56-39-698.png" alt="SpaceData Logo" class="logo"> 
-            <div class="links-container">
-                <a href="blog.html">Blog</a>
-                <a href="design.html">Design</a>
-                <a href="index.html">Home</a>
-                <a href="data-art.html">Data-Art</a>
-            </div>
-        </nav>
+        <img src="./images/Picsart_23-08-13_23-56-39-698.png" alt="SpaceData Logo" class="logo"> 
+        <ul class="links-container">
+            <li class="navText nav-link" onclick="navigateTo('index.html')">Home</li>
+            <li class="navText nav-link" onclick="navigateTo('blog.html')">Blogs</li>
+            <li class="navText nav-link" onclick="navigateTo('design.html')">Design</li>
+            <li class="navText nav-link" onclick="navigateTo('data-visualisations.html')">Data-Visualisation</li>
+            <li class="navText nav-link" onclick="navigateTo('data-art.html')">Data-Art</li>
+        </ul>
     </nav>
 
     <main class="data-vis-container">
-        <header class="data-vis-header">
-            <h1>Data Visualisation</h1>
-            <p>Content coming soon...</p>
-        </header>
+        <h1>Data Visualisation</h1>
+
+        <section id="cme-section">
+            <h2>Coronal Mass Ejection (CME) Analysis</h2>
+            <figure>
+                <svg id="cmeChart" width="800" height="400"></svg>
+                <p>This line graph displays the frequency of Coronal Mass Ejections (CMEs) observed by NASA's Solar Dynamics Observatory over the past year. The x-axis represents time in months, while the y-axis represents the number of CME events.</p>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+        <section id="solar-flare-section">
+
+            <h2>Solar Flare Data</h2>
+            <figure id="flareChart-container">
+                <svg id="flareChart" width="400" height="400"></svg>
+                <p>This pie chart illustrates the distribution of different types of solar flares observed in the last six months. The categories include X-class, M-class, and C-class flares, which are distinguished by their intensity and potential impact on Earth's magnetosphere.</p>
+            </figure>
+        </section>
         
     </main>
-
+    
     <footer>
         <p>&copy; 2023 Space Data by NASA. All rights reserved.</p>
         <a href="#terms">Terms of Service</a> | <a href="#privacy">Privacy Policy</a>
     </footer>
+    <button id="scrollToTopBtn" class="scroll-to-top-btn">&#8593;</button>
+    <script src="script.js"></script>
 </body>
-
 </html>

@@ -3,73 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Data by NASA</title>
+    <meta name="description" content="Explore space data with NASA's rich data repository.">
+    <meta name="keywords" content="NASA, Space, Data, Astronomy, Solar System">
+    <meta name="author" content="Lucien Zhang">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <title>Space Data by NASA</title>
 </head>
 <body>
-
     <nav>
-        <nav>
-            <img src="./images/Picsart_23-08-13_23-56-39-698.png" alt="SpaceData Logo" class="logo"> 
-            <div class="links-container">
-                <a href="blog.html">Blog</a>
-                <a href="design.html">Design</a>
-                <a href="data-visualisations.html">Data-Visualisations</a>
-                <a href="data-art.html">Data-Art</a>
-            </div>
+        <img src="./images/Picsart_23-08-13_23-56-39-698.png" alt="SpaceData Logo" class="logo"> 
+            <ul class="links-container">
+                <li class="navText nav-link" onclick="navigateTo('index.html')">Home</li>
+                <li class="navText nav-link" onclick="navigateTo('blog.html')">Blogs</li>
+                <li class="navText nav-link" onclick="navigateTo('design.html')">Design</li>
+                <li class="navText nav-link" onclick="navigateTo('data-visualisations.html')">Data-Visualisation</li>
+                <li class="navText nav-link" onclick="navigateTo('data-art.html')">Data-Art</li>
+            </ul>
         </nav>
-    </nav>
-
     <main>
         <section id="home">
             <h1>Welcome to Space Data by NASA</h1>
-            <p>This website provides insights and visualizations based on live data from NASA. Explore the vastness of space through our interactive sections.</p>
+            <p id="page-descriptiontext">This website provides insights and visualizations based on live data from NASA. Explore the vastness of space through our interactive sections.</p>
         </section>
 
-        
         <div class="spacer"></div>
 
-        <div class="slideshow-container">
-            
-            
-        </div>
-        
-        <div style="text-align:center">
-            
-        </div>
-        
-        
+        <article class="page-description" id="nasa-info" onclick="window.open('https://www.nasa.gov/', '_blank');">
+            <img src="./images/kisspng-nasa-insignia-logo-image-outer-space-download-nasa-vector-logo-eps-ai-free-seek-5bfcc9e2033a23.0491978215432934100132.png" alt="NASA Logo" id="nasa-logo">
+            <h2>About NASA</h2>
+            <p>NASA, the National Aeronautics and Space Administration, was established on July 29, 1958, by the National Aeronautics and Space Act. The formation was a direct response to the Soviet Union's successful launch of Sputnik, the world's first artificial satellite. NASA's early missions were focused on breaking new ground in aeronautics and getting humans into space. The agency achieved significant milestones, including the Apollo Moon-landing missions, the Space Shuttle program, and the construction of the International Space Station in collaboration with other nations. NASA has also been responsible for launching various unmanned missions to explore the Earth, Mars, and beyond. Today, NASA continues to push the boundaries of science and technology as it aims for new missions, including sending humans to Mars.</p>
+        </article>
 
-        
-        <div class="page-description-container">
-            
-            <section class="page-description blog">
+        <div class="divider"></div>
+
+        <h2>Contents of my Website</h2>
+
+        <section class="page-description-container">
+            <article class="page-description blog" onclick="window.location='blog.html';">
                 <h2>Blog</h2>
                 <p>Dive deep into the world of space data with our insightful articles. Discover the stories behind the data and our journey in visualizing them.</p>
-            </section>
+            </article>
         
-            
-            <section class="page-description design">
+            <article class="page-description design" onclick="window.location='design.html';">
                 <h2>Design</h2>
                 <p>Explore our design philosophy, wireframes, and style guides. Understand the choices we made to present data in the most engaging way.</p>
-            </section>
+            </article>
         
-            
-            <section class="page-description data-visualisations">
+            <article class="page-description data-visualisations" onclick="window.location='data-Visualisations.html';">
                 <h2>Data-Visualisations</h2>
                 <p>Experience interactive visualizations crafted from live NASA data. Navigate through space phenomena and events in an immersive way.</p>
-            </section>
+            </article>
         
-            
-            <section class="page-description data-art">
+            <article class="page-description data-art" onclick="window.location='data-art.html';">
                 <h2>Data-Art</h2>
                 <p>Where art meets data. Marvel at artistic interpretations and representations of space data, blending creativity with information.</p>
-            </section>
-        </div>
+            </article>
+        </section>
 
-        
-        
+        <div class="divider"></div>
+
+        <section class="slideshow-container">
+            <h1>Images from NASA</h1> 
+        </section>
     </main>
 
     <footer>
@@ -77,6 +73,7 @@
         <p>&copy; Images taken from: WallpaperAccess. (2023). Awesome Minimal Space Wallpapers - WallpaperAccess. [online] Available at: https://wallpaperaccess.com/minimal-space [Accessed 14 Aug. 2023].‌</p>
         <a href="#terms">Terms of Service</a> | <a href="#privacy">Privacy Policy</a>
     </footer>
+    <button id="scrollToTopBtn" class="scroll-to-top-btn">&#8593;</button>
     <script src="script.js"></script>
 </body>
 </html>
