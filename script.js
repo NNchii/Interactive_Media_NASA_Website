@@ -540,7 +540,7 @@ function createNavbar() {
     // Define menu items and their corresponding URLs
     const menuItems = [
       { name: 'Home', url: 'index.html' },
-      { name: 'Blogs', url: 'blog.html' }, 
+      { name: 'Blogs', url: 'blog.html' },
       { name: 'Design', url: 'design.html' },
       { name: 'Data-Visualisation', url: 'data-visualisations.html' },
       { name: 'Data-Art', url: 'data-art.html' },
@@ -565,13 +565,5 @@ function createNavbar() {
     navbarDiv.appendChild(nav);
   }
 
-  function navigateTo(page) {
-    // If the page is in the "HTML Scripts" folder, adjust the path
-    if (page === 'blog.html') {
-        window.location.href = '/HTML Scripts/' + page;
-    } else {
-        window.location.href = page;
-    }
-  }
-
   createNavbar();
+  
