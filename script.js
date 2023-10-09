@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Fetch CME Analysis data
 const today = new Date().toISOString().split('T')[0];
 const lastMonth = new Date(new Date().setDate(new Date().getDate() - 30)).toISOString().split('T')[0];
+const lastWeek = new Date(new Date().setDate(new Date().getDate() - 7)).toISOString().split('T')[0];
 
 fetch(`https://api.nasa.gov/DONKI/CMEAnalysis?startDate=${lastMonth}&endDate=${today}&mostAccurateOnly=true&speed=500&halfAngle=30&catalog=ALL&api_key=vOmpLQznTbpKpZHZTl6eCpbc6Nfj9EvCUvKf8p6V`)
     .then(response => response.json())
@@ -63,6 +64,19 @@ fetch(`https://api.nasa.gov/DONKI/FLR?startDate=${lastMonth}&endDate=${today}&ap
     .then(response => response.json())
     .then(data => displaySolarFlarePieChart(data))
     .catch(error => console.error("Error fetching Solar Flare data:", error));
+
+    fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=2023-10-02&end_date=2023-10-09&api_key=vOmpLQznTbpKpZHZTl6eCpbc6Nfj9EvCUvKf8p6V`)
+    .then(response => response.json())
+    .then(data => {
+        if (data && data.near_earth_objects) {
+            displayNEOChart(data);
+        } else {
+            console.error("Invalid data:", data);
+        }
+    })
+    .catch(error => console.error("Error fetching NEO data:", error));
+
+
 
     function displayCMEChart(data) {
         const svg = d3.select("#cmeChart");
@@ -283,7 +297,120 @@ fetch(`https://api.nasa.gov/DONKI/FLR?startDate=${lastMonth}&endDate=${today}&ap
                 .attr("class", "legend-text") 
                 .text(d => d);
     }
+
+    function displayNEOChart(data) {
+        // Flatten the data into a single array
+        const allNEOs = Object.values(data.near_earth_objects).flat();
     
+        // Select the SVG element where the chart will be displayed
+        const svg = d3.select("#neoChart");
+    
+        // Define margins for the chart area
+        const margin = {top: 50, right: 50, bottom: 50, left: 100};
+    
+        // Calculate the width and height of the chart area
+        const width = +svg.attr("width") - margin.left - margin.right;
+        const height = +svg.attr("height") - margin.top - margin.bottom;
+    
+        // Append a group element to the SVG, shifted by the margins
+        const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+    
+        // Prepare the data
+        const parsedData = allNEOs.map(d => ({
+            time: new Date(d.close_approach_data[0].close_approach_date),
+            distance: +d.close_approach_data[0].miss_distance.kilometers,
+            velocity: +d.close_approach_data[0].relative_velocity.kilometers_per_hour,
+            size: +d.estimated_diameter.kilometers.estimated_diameter_max  // Add this line
+        }));
+
+        // Create a scale for the radius of the dots
+        const r = d3.scaleLinear()
+        .domain([0, d3.max(parsedData, d => d.size)])
+        .range([2, 20]);
+    
+        // Create scales for the x and y axes
+        const x = d3.scaleTime().range([0, width]);
+        const y = d3.scaleLinear().range([height, 0]);
+    
+        // Set the domains for the scales based on the data
+        const earliestDate = d3.min(parsedData, d => d.time);
+        const mostRecentDate = d3.max(parsedData, d => d.time);
+        x.domain([new Date(earliestDate.getTime() - 24 * 60 * 60 * 1000), mostRecentDate]);  // <-- New code here
+        y.domain([0, d3.max(parsedData, d => d.distance)]);
+    
+        // Create the x and y axes
+        const xAxis = d3.axisBottom(x).ticks(d3.timeDay.every(1)).tickFormat(d3.timeFormat("%a %d"));  // Custom date format
+        const yAxis = d3.axisLeft(y);
+    
+        // Add the x-axis to the chart
+        g.append("g")
+            .attr("transform", `translate(0,${height})`)
+            .call(xAxis);
+    
+        // Add the y-axis to the chart
+        g.append("g")
+            .call(yAxis);
+
+        // Add X-Axis label
+        svg.append("text")
+            .attr("transform", `translate(${width / 2 + margin.left},${height + margin.top + 40})`)
+            .attr("class", "axis-label")
+            .text("Date");
+
+        // Add Y-Axis label
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", margin.left - 100)
+            .attr("x", -(height / 2) - margin.top)
+            .attr("dy", "1em")
+            .attr("class", "axis-label")
+            .text("Distance from Earth(km)");
+    
+        // Add circles for each data point
+        let circles = g.selectAll(".dot")
+        .data(parsedData, d => d.time);  // Key function for data join
+
+        circles.enter().append("circle")
+            .attr("class", "dot")
+            .attr("cx", d => x(d.time))
+            .attr("cy", d => y(d.distance))
+            .attr("r", d => Math.sqrt(d.size) * 8)  // Assuming 'size' is a property in your data
+            .attr("fill-opacity", 0.6);  // Semi-transparent
+
+        // Add a time slider (assuming you have an HTML element with id="timeSlider")
+        const slider = d3.select("#timeSlider");
+        slider.on("input", function() {
+            const value = +this.value;
+            const earliestDate = d3.min(parsedData, d => d.time);
+            const cutoffDate = new Date(earliestDate.getTime() + value * 24 * 60 * 60 * 1000);  // value days after the earliest date
+            const newData = parsedData.filter(d => d.time <= cutoffDate);
+
+            
+
+            // Update the circles
+            circles = g.selectAll(".dot")
+                .data(newData, d => d.time);  // Key function for data join
+
+            // Remove old circles
+            circles.exit().remove();
+
+            // Update existing circles
+            circles.attr("cx", d => x(d.time))
+                .attr("cy", d => y(d.distance));
+
+            // Add new circles
+            circles.enter().append("circle")
+                .attr("class", "dot")
+                .attr("cx", d => x(d.time))
+                .attr("cy", d => y(d.distance))
+                .attr("r", d => Math.sqrt(d.size) * 8)  // Assuming 'size' is a property in your data
+                .attr("fill-opacity", 0.6);  // Semi-transparent
+
+        // Manually trigger the input event to update the chart
+        slider.dispatch("input");
+
+    });
+}
 
 let slideIndex = 1;
 
@@ -399,3 +526,53 @@ window.addEventListener("scroll", function() {
     scrollToTopBtn.style.opacity = "0";
   }
 });
+
+function createNavbar() {
+    // Select the div where the navbar will be inserted
+    const navbarDiv = document.getElementById('navbar');
+  
+    // Create the navbar container
+    const nav = document.createElement('nav');
+  
+    // Create an unordered list for the menu items
+    const ul = document.createElement('ul');
+    ul.className = "links-container";
+  
+    // Define your menu items and their corresponding URLs
+    const menuItems = [
+      { name: 'Home', url: 'index.html' },
+      { name: 'Blogs', url: 'blog.html' },
+      { name: 'Design', url: 'design.html' },
+      { name: 'Data-Visualisation', url: 'data-visualisations.html' },
+      { name: 'Data-Art', url: 'data-art.html' },
+      // Add more items as needed
+    ];
+  
+    // Get the current page's URL path
+    const currentPage = window.location.pathname.split('/').pop();
+  
+    // Loop through the menu items and create list items for each one
+    for (const item of menuItems) {
+      const li = document.createElement('li');
+      li.className = "navText nav-link";
+  
+      // If the current page matches this menu item, add the 'active' class
+      if (currentPage === item.url) {
+        li.classList.add('active');
+      }
+  
+      li.textContent = item.name;
+      li.setAttribute("onclick", `navigateTo('${item.url}')`);
+      ul.appendChild(li);
+    }
+  
+    // Append the unordered list to the navbar container
+    nav.appendChild(ul);
+  
+    // Append the navbar to the div
+    navbarDiv.appendChild(nav);
+  }
+  
+  // Call the function to create the navbar
+  createNavbar();
+  

@@ -6,19 +6,15 @@
     <meta name="description" content="Explore space data with NASA's rich data repository.">
     <meta name="keywords" content="NASA, Space, Data, Astronomy, Solar System">
     <meta name="author" content="Lucien Zhang">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <title>Space Data by NASA</title>
 </head>
 <body>
     <nav>
-        <img src="./images/Picsart_23-08-13_23-56-39-698.png" alt="SpaceData Logo" class="logo"> 
+        <img src="/images/Picsart_23-08-13_23-56-39-698.png" alt="SpaceData Logo" class="logo"> 
         <ul class="links-container">
-            <li class="navText nav-link" onclick="navigateTo('index.html')">Home</li>
-            <li class="navText nav-link" onclick="navigateTo('blog.html')">Blogs</li>
-            <li class="navText nav-link" onclick="navigateTo('design.html')">Design</li>
-            <li class="navText nav-link" onclick="navigateTo('data-visualisations.html')">Data-Visualisation</li>
-            <li class="navText nav-link" onclick="navigateTo('data-art.html')">Data-Art</li>
+            <div id="navbar"></div>
         </ul>
     </nav>
 
@@ -26,7 +22,7 @@
     <h1 class="blog-title">Welcome to the Blog page.</h1>
     
     <section class="featured-article">
-        <img src="./images/2100304.jpg" alt="Featured Article Image">
+        <img src="/images/2100304.jpg" alt="Featured Article Image">
         <h2>Close Reading - Overview of Data Visualisation</h2>
         <p>31/07/2023</p>
         <p>Data visualisation is a critical component in modern data science and communication is the main focus of Chapter 2 in “Embodying Data”. The reading provides a rich historical context and technical details in the exploration of the evolution of data visualisation, going from hand-drawn illustrations to sophisticated computer generated graphics to display various data. The author of the reading shows the importance of comprehensive data for effective visualisation which is a highly important concept for us to understand as a web designer.</p>
@@ -56,7 +52,7 @@
     </section>
     <div class="divider"></div>
     <section class="featured-article">
-        <img src="./images/1145564.jpg" alt="Featured Article Image">
+        <img src="/images/1145564.jpg" alt="Featured Article Image">
         <h2>Blog Post 2 - Critical Reflection – Your proposed UI and UX</h2>
 
         <p>29/08/2023</p>
@@ -83,12 +79,39 @@
         </article>
         <a href="#" class="read-more" data-toggle="collapsible-content">Read More</a>
     </section>
+    <div class="divider"></div>
+    <section class="featured-article">
+        <img src="/images/408307-simple-background-minimalism-Earth-space-black-background.jpg" alt="Featured Article Image">
+        <h2>Blog Post 3 - Close Reading - Interaction for Data Visualisation</h2>
+
+        <p>27/09/2023</p>
+
+        <p>The academic paper "What is Interaction for Data Visualization?" by Evanthia Dimara and Charles Perin serves as a crucial cornerstone in the complex landscape of data visualisation. The article grapples with the elusive yet crucial concept of "interaction", a term that has been ambiguously defined and often misunderstood within the field. This reading is particularly important for me as a website designer as the concept of interaction is not just confined to data visualisation, instead it permeates the broader domains of web design and human-computer interaction, areas that are integral to my journey and future career in this field. In this blog, I aim to dissect the key arguments presented by Evanthia Dimara and Charles Perin and reflect on my individual experiences in my web development process and reflect on the paper's impact on my own understanding of interaction in both data visualisation and web design.</p>
+
+        <article class="collapsible-content">
+            
+            <p>Evanthia Dimara and Charles Perin's paper, "What is Interaction for Data Visualization?", serves as a comprehensive exploration into the complex subject of interaction within the realm of data visualisation. The authors began by establishing a clear objective to provide a concrete definition for "interaction" as the term has been ambiguously defined and often leads to confusion in both academic and practical contexts. To achieve this goal, they employ a rigorous methodology that involves an in-depth review on the existing literature which spans across various subfields including Human-Computer Interaction (HCI), information visualisation, visual analytics, and scientific visualisation etc. One of the paper's most prominent features is its meticulous approach to literature review, the authors use specific metrics like "Impact" and "Relevance" to sift through the vast library of existing works to ensure that their paper is deeply rooted in credible and impactful research. This methodology is not just thorough but also innovative as it sets a new standard for academic scrutiny in interdisciplinary research. The result of this extensive review is the proposal of a new, synthesised definition of interaction, the authors describe interaction as a "thinking tool", a term that shifts the focus from mere functionality to cognitive enhancement. They argue that this new definition is not just a semantic exercise but a necessary step for advancing the field of data visualisation by providing a clear, unified definition they aim to remove the conceptual barriers that have hindered progress, thereby paving the way for more effective and meaningful interactive data visualisation systems.</p>
+
+            <p>As an Interactive Media student, this concept of interaction is an important aspect in my journey both academically as well as my potential career in this field. Throughout my design process for websites I have made, the question of how users interact with the visual and functional elements has always been the fundamental part, yet after reading Dimara and Perin's paper, I came to realise that my initial understanding of "interaction" was somewhat ambiguous as I often found myself focused in the technicalities of the website’s design, ensuring buttons are clickable, sliders are smooth, or data points are easily navigable without giving much thought to the cognitive aspects that the reading emphasises.</p>
+
+            <p>The reading’s focus on redefining interaction as a "thinking tool" has brought a new understanding of “Interaction” for me as it challenges the conventional knowledge that interaction is only about usability or functionality, yet instead, it elevates the concept to a cognitive level, asking us to consider how interactive elements can facilitate deeper understanding, engagement, or decision-making. This resonates with my personal experiences in past projects where my focus is often on the technicalities of my website with the user's journey and experience through the website, however after reading through the reading, I have come to realise that I should also be considering how each interactive element can contribute to the user's cognitive process, for example does a dropdown menu help the user filter information more effectively? Does a hover effect on a data point provide valuable, immediate context for the user? Etc.</p>
+
+            <p>This change in my perspective and understanding allows me to reconsider my current practices I have employed in designing my websites and in future projects, I plan to incorporate this more holistic understanding of interaction where It's not just about getting the user from Point A to Point B, rather it's about enriching the user’s journey so that they arrive at Point B with a deeper understanding or clearer perspective of the information provided on through the website. This means I will have to rethink the interactive elements in my websites and the data visualisation tools to ensure that they serve a cognitive function instead of just a utilitarian one. Additionally, this paper has inspired me to look deeper into additional research such as cognitive psychology to understand how users process interactive elements and case studies that showcase effective interaction design in web development as these researches can enrich my existing knowledge on web design and allow me to work better and grow further as a web designer in creating designs that focuses on creating the best experience for the user throughout their journey on the site.</p>
+
+            <p>The reading "What is Interaction for Data Visualization?" by Evanthia Dimara and Charles Perin is a crucial work that has significantly broadened my understanding of the concept of “Interaction”, as a web design student and potentially going into this career field, this reading had provided me invaluable understanding in altering my focuses in my development process to push beyond the conventional boundaries of interaction designs that I have focused on prior. The authors’ innovative approach in defining interaction as a “thinking tool” provides a brand-new lens to look through upon the complex subject of interaction and encourages web developers to take a more holistic approach when it comes to designing the interactive system of a website thus making this article an invaluable resource for any that wishes to step into the field of web development as well as my personal improvements in my future projects.</p>
+        
+            <p>References:</p>>
+
+            <p>Dimara, E. and Perin, C., 2019. What is interaction for data visualization?. IEEE transactions on visualization and computer graphics, 26(1), pp.119-129.</p>
+        </article>
+        <a href="#" class="read-more" data-toggle="collapsible-content">Read More</a>
+    </section>
 </main>
 <footer>
     <p>&copy; 2023 Space Data by NASA. All rights reserved.</p>
     <a href="#terms">Terms of Service</a> | <a href="#privacy">Privacy Policy</a>
 </footer>
     <button id="scrollToTopBtn" class="scroll-to-top-btn">&#8593;</button>
-    <script src="script.js"></script>
+    <script src="/script.js"></script>
 </body>
 </html>

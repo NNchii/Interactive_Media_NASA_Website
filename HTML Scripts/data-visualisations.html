@@ -7,7 +7,7 @@
     <meta name="description" content="Explore space data with NASA's rich data repository.">
     <meta name="keywords" content="NASA, Space, Data, Astronomy, Solar System">
     <meta name="author" content="Lucien Zhang">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
@@ -17,13 +17,9 @@
 
 <body>
     <nav>
-        <img src="./images/Picsart_23-08-13_23-56-39-698.png" alt="SpaceData Logo" class="logo"> 
+        <img src="/images/Picsart_23-08-13_23-56-39-698.png" alt="SpaceData Logo" class="logo"> 
         <ul class="links-container">
-            <li class="navText nav-link" onclick="navigateTo('index.html')">Home</li>
-            <li class="navText nav-link" onclick="navigateTo('blog.html')">Blogs</li>
-            <li class="navText nav-link" onclick="navigateTo('design.html')">Design</li>
-            <li class="navText nav-link" onclick="navigateTo('data-visualisations.html')">Data-Visualisation</li>
-            <li class="navText nav-link" onclick="navigateTo('data-art.html')">Data-Art</li>
+            <div id="navbar"></div>
         </ul>
     </nav>
 
@@ -43,11 +39,19 @@
 
             <h2>Solar Flare Data</h2>
             <figure id="flareChart-container">
-                <svg id="flareChart" width="400" height="400"></svg>
+                <svg id="flareChart" width="600" height="400"></svg>
                 <p>This pie chart illustrates the distribution of different types of solar flares observed in the last six months. The categories include X-class, M-class, and C-class flares, which are distinguished by their intensity and potential impact on Earth's magnetosphere.</p>
             </figure>
         </section>
-        
+
+        <section id="neo-section">
+            <h2>Near-Earth Object (NEO) Trajectory Analysis</h2>
+            <figure>
+                <svg id="neoChart" width="1200" height="600"></svg>
+                <input type="range" id="timeSlider" min="0" max="7" value="0" class="slider">
+                <p id="neo-description">This interactive scatter plot displays the distance of Near-Earth Objects (NEOs) and the size of these objects over a week's time. Use the slider to change the time range.</p>
+            </figure>
+        </section>
     </main>
     
     <footer>
@@ -55,6 +59,6 @@
         <a href="#terms">Terms of Service</a> | <a href="#privacy">Privacy Policy</a>
     </footer>
     <button id="scrollToTopBtn" class="scroll-to-top-btn">&#8593;</button>
-    <script src="script.js"></script>
+    <script src="/script.js"></script>
 </body>
 </html>

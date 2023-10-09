@@ -205,6 +205,7 @@ nav a, .nav-link {
 .nav-link.active, nav a.active {
     font-weight: bold;
     border-bottom: 2px solid rgb(0, 0, 0);
+    border-bottom: 2px solid #ffffff;
 }
 
 .nav-link:hover, nav a:hover {
@@ -687,8 +688,8 @@ article img {
     justify-content: center; 
     gap: 50px;
     height: 100%; 
-    margin-top: 450px;
-    margin-bottom: 700px;
+    margin-top: 900px;
+    margin-bottom: 1000px;
 }
 
 #cme-section {
@@ -710,7 +711,7 @@ article img {
     max-width: 800px;
     margin: auto;
     text-align: center; 
-    margin-bottom: 100px;
+    margin-bottom: 300px;
 }
 
 #flareChart-container {
@@ -797,3 +798,32 @@ article img {
     stroke-width: 1px;
 }
 
+#neo-section {
+    margin: 0 auto;
+    padding: 40px;
+    background-color: transparent;
+    border-radius: 10px;
+    max-width: 1500px;
+}
+
+#neoChart {
+    margin: 20px auto;
+}
+
+.slider {
+    width: 100%;
+    margin: 20px 0;
+    display: block;
+}
+/* Change the color of the dots to blue */
+.dot {
+    fill: rgb(119, 189, 255);
+    fill-opacity: 0.6;
+  }
+  
+  .axis-label {
+    font-family: 'Poppins', sans-serif; 
+    font-size: 16px;
+    font-weight: normal;
+    fill: #ffffff;  /* Text color */
+}
