@@ -815,15 +815,15 @@ article img {
     margin: 20px 0;
     display: block;
 }
-/* Change the color of the dots to blue */
+
 .dot {
     fill: rgb(119, 189, 255);
     fill-opacity: 0.6;
   }
   
-  .axis-label {
+.axis-label {
     font-family: 'Poppins', sans-serif; 
     font-size: 16px;
     font-weight: normal;
-    fill: #ffffff;  /* Text color */
+    fill: #ffffff;
 }

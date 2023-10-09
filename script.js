@@ -320,7 +320,7 @@ fetch(`https://api.nasa.gov/DONKI/FLR?startDate=${lastMonth}&endDate=${today}&ap
             time: new Date(d.close_approach_data[0].close_approach_date),
             distance: +d.close_approach_data[0].miss_distance.kilometers,
             velocity: +d.close_approach_data[0].relative_velocity.kilometers_per_hour,
-            size: +d.estimated_diameter.kilometers.estimated_diameter_max  // Add this line
+            size: +d.estimated_diameter.kilometers.estimated_diameter_max
         }));
 
         // Create a scale for the radius of the dots
@@ -377,19 +377,19 @@ fetch(`https://api.nasa.gov/DONKI/FLR?startDate=${lastMonth}&endDate=${today}&ap
             .attr("r", d => Math.sqrt(d.size) * 8)  // Assuming 'size' is a property in your data
             .attr("fill-opacity", 0.6);  // Semi-transparent
 
-        // Add a time slider (assuming you have an HTML element with id="timeSlider")
+        // Add a time slider
         const slider = d3.select("#timeSlider");
         slider.on("input", function() {
             const value = +this.value;
             const earliestDate = d3.min(parsedData, d => d.time);
-            const cutoffDate = new Date(earliestDate.getTime() + value * 24 * 60 * 60 * 1000);  // value days after the earliest date
+            const cutoffDate = new Date(earliestDate.getTime() + value * 24 * 60 * 60 * 1000);
             const newData = parsedData.filter(d => d.time <= cutoffDate);
 
             
 
             // Update the circles
             circles = g.selectAll(".dot")
-                .data(newData, d => d.time);  // Key function for data join
+                .data(newData, d => d.time);
 
             // Remove old circles
             circles.exit().remove();
@@ -403,12 +403,11 @@ fetch(`https://api.nasa.gov/DONKI/FLR?startDate=${lastMonth}&endDate=${today}&ap
                 .attr("class", "dot")
                 .attr("cx", d => x(d.time))
                 .attr("cy", d => y(d.distance))
-                .attr("r", d => Math.sqrt(d.size) * 8)  // Assuming 'size' is a property in your data
-                .attr("fill-opacity", 0.6);  // Semi-transparent
+                .attr("r", d => Math.sqrt(d.size) * 8)
+                .attr("fill-opacity", 0.6);
 
         // Manually trigger the input event to update the chart
         slider.dispatch("input");
-
     });
 }
 
@@ -538,25 +537,21 @@ function createNavbar() {
     const ul = document.createElement('ul');
     ul.className = "links-container";
   
-    // Define your menu items and their corresponding URLs
+    // Define menu items and their corresponding URLs
     const menuItems = [
       { name: 'Home', url: 'index.html' },
       { name: 'Blogs', url: 'blog.html' },
       { name: 'Design', url: 'design.html' },
       { name: 'Data-Visualisation', url: 'data-visualisations.html' },
       { name: 'Data-Art', url: 'data-art.html' },
-      // Add more items as needed
     ];
-  
-    // Get the current page's URL path
+
     const currentPage = window.location.pathname.split('/').pop();
-  
-    // Loop through the menu items and create list items for each one
+
     for (const item of menuItems) {
       const li = document.createElement('li');
       li.className = "navText nav-link";
-  
-      // If the current page matches this menu item, add the 'active' class
+
       if (currentPage === item.url) {
         li.classList.add('active');
       }
@@ -565,14 +560,10 @@ function createNavbar() {
       li.setAttribute("onclick", `navigateTo('${item.url}')`);
       ul.appendChild(li);
     }
-  
-    // Append the unordered list to the navbar container
     nav.appendChild(ul);
-  
-    // Append the navbar to the div
+
     navbarDiv.appendChild(nav);
   }
-  
-  // Call the function to create the navbar
+
   createNavbar();
   
