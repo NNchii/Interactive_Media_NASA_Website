@@ -39,44 +39,50 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Fetch Earth images
-    fetch('https://images-api.nasa.gov/search?q=earth')
-        .then(response => response.json())
-        .then(data => {
-            displayNasaData(data);
-        })
-        .catch(error => {
-            console.error("There was an error fetching the NASA Earth data:", error);
-        });
+    
 });
 
-// Fetch CME Analysis data
-const today = new Date().toISOString().split('T')[0];
-const lastMonth = new Date(new Date().setDate(new Date().getDate() - 30)).toISOString().split('T')[0];
-const lastWeek = new Date(new Date().setDate(new Date().getDate() - 7)).toISOString().split('T')[0];
+document.addEventListener('DOMContentLoaded', (event) => {
+    if (document.getElementById("homePage")) {
+      // Fetch Earth images
+        fetch('https://images-api.nasa.gov/search?q=earth')
+            .then(response => response.json())
+            .then(data => {
+                displayNasaData(data);
+            })
+            .catch(error => {
+                console.error("There was an error fetching the NASA Earth data:", error);
+            });
+    }
+  
+    if (document.getElementById("dataVisPage")) {
+      // Fetch CME Analysis data
+        const today = new Date().toISOString().split('T')[0];
+        const lastMonth = new Date(new Date().setDate(new Date().getDate() - 30)).toISOString().split('T')[0];
+        const lastWeek = new Date(new Date().setDate(new Date().getDate() - 7)).toISOString().split('T')[0];
 
-fetch(`https://api.nasa.gov/DONKI/CMEAnalysis?startDate=${lastMonth}&endDate=${today}&mostAccurateOnly=true&speed=500&halfAngle=30&catalog=ALL&api_key=vOmpLQznTbpKpZHZTl6eCpbc6Nfj9EvCUvKf8p6V`)
-    .then(response => response.json())
-    .then(data => displayCMEChart(data))
-    .catch(error => console.error("Error fetching CME Analysis data:", error));
+        fetch(`https://api.nasa.gov/DONKI/CMEAnalysis?startDate=${lastMonth}&endDate=${today}&mostAccurateOnly=true&speed=500&halfAngle=30&catalog=ALL&api_key=vOmpLQznTbpKpZHZTl6eCpbc6Nfj9EvCUvKf8p6V`)
+            .then(response => response.json())
+            .then(data => displayCMEChart(data))
+            .catch(error => console.error("Error fetching CME Analysis data:", error));
 
-fetch(`https://api.nasa.gov/DONKI/FLR?startDate=${lastMonth}&endDate=${today}&api_key=vOmpLQznTbpKpZHZTl6eCpbc6Nfj9EvCUvKf8p6V`)
-    .then(response => response.json())
-    .then(data => displaySolarFlarePieChart(data))
-    .catch(error => console.error("Error fetching Solar Flare data:", error));
+        fetch(`https://api.nasa.gov/DONKI/FLR?startDate=${lastMonth}&endDate=${today}&api_key=vOmpLQznTbpKpZHZTl6eCpbc6Nfj9EvCUvKf8p6V`)
+            .then(response => response.json())
+            .then(data => displaySolarFlarePieChart(data))
+            .catch(error => console.error("Error fetching Solar Flare data:", error));
 
-    fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=2023-10-02&end_date=2023-10-09&api_key=vOmpLQznTbpKpZHZTl6eCpbc6Nfj9EvCUvKf8p6V`)
-    .then(response => response.json())
-    .then(data => {
-        if (data && data.near_earth_objects) {
-            displayNEOChart(data);
-        } else {
-            console.error("Invalid data:", data);
-        }
-    })
-    .catch(error => console.error("Error fetching NEO data:", error));
-
-
+            fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=2023-10-02&end_date=2023-10-09&api_key=vOmpLQznTbpKpZHZTl6eCpbc6Nfj9EvCUvKf8p6V`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.near_earth_objects) {
+                    displayNEOChart(data);
+                } else {
+                    console.error("Invalid data:", data);
+                }
+            })
+            .catch(error => console.error("Error fetching NEO data:", error));
+            }
+  });
 
     function displayCMEChart(data) {
         const svg = d3.select("#cmeChart");
@@ -205,8 +211,6 @@ fetch(`https://api.nasa.gov/DONKI/FLR?startDate=${lastMonth}&endDate=${today}&ap
             .attr("cy", d => y(d.latitude))
             .attr("r", 3);
     }
-    
-    
 
     function displaySolarFlarePieChart(data) {
         const flareClasses = {};
@@ -410,6 +414,8 @@ fetch(`https://api.nasa.gov/DONKI/FLR?startDate=${lastMonth}&endDate=${today}&ap
         slider.dispatch("input");
     });
 }
+
+
 
 let slideIndex = 1;
 
