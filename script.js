@@ -91,38 +91,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const height = +svg.attr("height") - margin.top - margin.bottom;
         const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
     
-        // Prepare the data
         const parsedData = data.map(d => ({
             time: new Date(d.time21_5),
             longitude: +d.longitude,
             latitude: +d.latitude
         }));
     
-        // Create scales
         const x = d3.scaleTime().range([0, width]);
         const y = d3.scaleLinear().range([height, 0]);
     
-        // Set domains
         x.domain(d3.extent(parsedData, d => d.time));
         y.domain([d3.min(parsedData, d => Math.min(d.longitude, d.latitude)), d3.max(parsedData, d => Math.max(d.longitude, d.latitude))]);
     
-        // Create axes
         const xAxis = d3.axisBottom(x)
             .tickFormat(d3.timeFormat("%b %d"));  
         const yAxis = d3.axisLeft(y);
     
-        // Add X Axis
         g.append("g")
             .attr("transform", `translate(0,${height})`)
             .attr("class", "axis")
             .call(xAxis);
 
-        // Add Y Axis
         g.append("g")
             .attr("class", "axis")
             .call(yAxis);
     
-        // Add line for longitude
         const lineLongitude = d3.line()
             .x(d => x(d.time))
             .y(d => y(d.longitude));
@@ -133,7 +126,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .attr("d", lineLongitude)
             .attr("fill", "none");
     
-        // Add line for latitude
         const lineLatitude = d3.line()
             .x(d => x(d.time))
             .y(d => y(d.latitude));
@@ -144,13 +136,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .attr("d", lineLatitude)
             .attr("fill", "none");
     
-        // Add X-Axis label
         svg.append("text")
             .attr("transform", `translate(${width / 2 + margin.left},${height + margin.top + 40})`)
             .attr("class", "axis-label") 
             .text("Time");
 
-        // Add Y-Axis label
         svg.append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", margin.left - 50)
@@ -159,7 +149,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .attr("class", "axis-label")
             .text("Longitude and Latitude");
 
-            // Add Legend
         const legendData = [
             { label: 'Longitude', class: 'longitude' },
             { label: 'Latitude', class: 'latitude' }
@@ -171,7 +160,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const totalLegendWidth = legendData.length * (legendWidth + legendItemSpacing);
 
         const legend = svg.append("g")
-            .attr("transform", `translate(${(width + 2 * margin.left - totalLegendWidth) / 2},${margin.top - 1})`);  // Positioning the legend above the graph
+            .attr("transform", `translate(${(width + 2 * margin.left - totalLegendWidth) / 2},${margin.top - 1})`);
 
         const legendItem = legend.selectAll(".legendItem")
             .data(legendData)
@@ -193,7 +182,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .attr("dy", "0.35em")
             .text(d => d.label);
         
-        // Add circles for longitude data points
         g.selectAll(".dot-longitude")
             .data(parsedData)
             .enter().append("circle")
@@ -202,7 +190,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .attr("cy", d => y(d.longitude))
             .attr("r", 3);
 
-            // Add circles for latitude data points
         g.selectAll(".dot-latitude")
             .data(parsedData)
             .enter().append("circle")
@@ -249,12 +236,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const g = svg.append("g")
             .attr("transform", `translate(${width / 2}, ${(height / 2) + 150})`); 
     
-        // Tooltip
         const tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
     
-        // Draw pie chart
         const path = g.selectAll("path")
             .data(pie(Object.entries(flareClasses)))
             .enter().append("path")
@@ -303,23 +288,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function displayNEOChart(data) {
-        // Flatten the data into a single array
         const allNEOs = Object.values(data.near_earth_objects).flat();
     
-        // Select the SVG element where the chart will be displayed
         const svg = d3.select("#neoChart");
     
-        // Define margins for the chart area
         const margin = {top: 50, right: 50, bottom: 50, left: 100};
     
-        // Calculate the width and height of the chart area
         const width = +svg.attr("width") - margin.left - margin.right;
         const height = +svg.attr("height") - margin.top - margin.bottom;
     
-        // Append a group element to the SVG, shifted by the margins
         const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
     
-        // Prepare the data
         const parsedData = allNEOs.map(d => ({
             time: new Date(d.close_approach_data[0].close_approach_date),
             distance: +d.close_approach_data[0].miss_distance.kilometers,
@@ -327,41 +306,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
             size: +d.estimated_diameter.kilometers.estimated_diameter_max
         }));
 
-        // Create a scale for the radius of the dots
         const r = d3.scaleLinear()
         .domain([0, d3.max(parsedData, d => d.size)])
         .range([2, 20]);
     
-        // Create scales for the x and y axes
         const x = d3.scaleTime().range([0, width]);
         const y = d3.scaleLinear().range([height, 0]);
     
-        // Set the domains for the scales based on the data
         const earliestDate = d3.min(parsedData, d => d.time);
         const mostRecentDate = d3.max(parsedData, d => d.time);
-        x.domain([new Date(earliestDate.getTime() - 24 * 60 * 60 * 1000), mostRecentDate]);  // <-- New code here
+        x.domain([new Date(earliestDate.getTime() - 24 * 60 * 60 * 1000), mostRecentDate]);
         y.domain([0, d3.max(parsedData, d => d.distance)]);
     
-        // Create the x and y axes
-        const xAxis = d3.axisBottom(x).ticks(d3.timeDay.every(1)).tickFormat(d3.timeFormat("%a %d"));  // Custom date format
+        const xAxis = d3.axisBottom(x).ticks(d3.timeDay.every(1)).tickFormat(d3.timeFormat("%a %d"));
         const yAxis = d3.axisLeft(y);
     
-        // Add the x-axis to the chart
         g.append("g")
             .attr("transform", `translate(0,${height})`)
             .call(xAxis);
     
-        // Add the y-axis to the chart
         g.append("g")
             .call(yAxis);
 
-        // Add X-Axis label
         svg.append("text")
             .attr("transform", `translate(${width / 2 + margin.left},${height + margin.top + 40})`)
             .attr("class", "axis-label")
             .text("Date");
 
-        // Add Y-Axis label
         svg.append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", margin.left - 100)
@@ -369,19 +340,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .attr("dy", "1em")
             .attr("class", "axis-label")
             .text("Distance from Earth(km)");
-    
-        // Add circles for each data point
+
         let circles = g.selectAll(".dot")
-        .data(parsedData, d => d.time);  // Key function for data join
+        .data(parsedData, d => d.time); 
 
         circles.enter().append("circle")
             .attr("class", "dot")
             .attr("cx", d => x(d.time))
             .attr("cy", d => y(d.distance))
-            .attr("r", d => Math.sqrt(d.size) * 8)  // Assuming 'size' is a property in your data
-            .attr("fill-opacity", 0.6);  // Semi-transparent
+            .attr("r", d => Math.sqrt(d.size) * 8)
+            .attr("fill-opacity", 0.6);
 
-        // Add a time slider
         const slider = d3.select("#timeSlider");
         slider.on("input", function() {
             const value = +this.value;
@@ -389,20 +358,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const cutoffDate = new Date(earliestDate.getTime() + value * 24 * 60 * 60 * 1000);
             const newData = parsedData.filter(d => d.time <= cutoffDate);
 
-            
-
-            // Update the circles
             circles = g.selectAll(".dot")
                 .data(newData, d => d.time);
 
-            // Remove old circles
             circles.exit().remove();
 
-            // Update existing circles
             circles.attr("cx", d => x(d.time))
                 .attr("cy", d => y(d.distance));
 
-            // Add new circles
             circles.enter().append("circle")
                 .attr("class", "dot")
                 .attr("cx", d => x(d.time))
@@ -410,12 +373,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 .attr("r", d => Math.sqrt(d.size) * 8)
                 .attr("fill-opacity", 0.6);
 
-        // Manually trigger the input event to update the chart
         slider.dispatch("input");
     });
 }
-
-
 
 let slideIndex = 1;
 
@@ -509,10 +469,8 @@ window.addEventListener('scroll', function() {
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
 });
 
-// Get the button element
 const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
-// Function to scroll to the top smoothly
 function scrollToTop() {
   window.scrollTo({
     top: 0,
@@ -520,10 +478,8 @@ function scrollToTop() {
   });
 }
 
-// Add click event to the button
 scrollToTopBtn.addEventListener("click", scrollToTop);
 
-// Show or hide the button based on scroll position
 window.addEventListener("scroll", function() {
   if (window.pageYOffset > 300) { 
     scrollToTopBtn.style.opacity = "1";
@@ -533,17 +489,13 @@ window.addEventListener("scroll", function() {
 });
 
 function createNavbar() {
-    // Select the div where the navbar will be inserted
     const navbarDiv = document.getElementById('navbar');
   
-    // Create the navbar container
     const nav = document.createElement('nav');
   
-    // Create an unordered list for the menu items
     const ul = document.createElement('ul');
     ul.className = "links-container";
   
-    // Define menu items and their corresponding URLs
     const menuItems = [
       { name: 'Home', url: 'index.html' },
       { name: 'Blogs', url: 'blog.html' },
@@ -572,4 +524,3 @@ function createNavbar() {
   }
 
   createNavbar();
-  
