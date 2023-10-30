@@ -5,7 +5,7 @@ window.onload = async function() {
         const today = new Date().toISOString().split('T')[0];
         const lastWeek = new Date(new Date().setDate(new Date().getDate() - 7)).toISOString().split('T')[0];
 
-        const response = await fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${lastWeek}&end_date=${today}&api_key=YOUR_API_KEY_HERE`);
+        const response = await fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${lastWeek}&end_date=${today}&api_key=vOmpLQznTbpKpZHZTl6eCpbc6Nfj9EvCUvKf8p6V`);
         const data = await response.json();
         
         sessionStorage.setItem('neoArtData', JSON.stringify(data));
