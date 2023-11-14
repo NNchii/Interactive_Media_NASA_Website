@@ -155,17 +155,17 @@ function displaySolarFlareArt(data) {
             const color = colorScale(index / data.length);
     
             const orbitPath = svg.append('circle')
-        .attr('class', 'orbit')
-        .attr('cx', centerX)
-        .attr('cy', centerY)
-        .attr('r', orbitRadius)
-        .attr('stroke', color)
-        .attr('stroke-width', 3);
-
-        orbitPath.datum(cme)
-        .on('mouseover', function(event, d) {
+            .attr('class', 'orbit')
+            .attr('cx', centerX)
+            .attr('cy', centerY)
+            .attr('r', orbitRadius)
+            .attr('stroke', color)
+            .attr('stroke-width', 3);
+    
+        // Updated event handlers
+        orbitPath.on('mouseover', (event) => {
             d3.select(this).attr('stroke-width', 5);
-            solarArtTooltip.html(`Class: ${d.type}<br>Longitude: ${d.longitude}<br>Latitude: ${d.latitude}<br>Speed: ${d.speed} km/s`)
+            solarArtTooltip.html(`Class: ${cme.type || 'N/A'}<br>Longitude: ${cme.longitude || 'N/A'}<br>Latitude: ${cme.latitude || 'N/A'}<br>Speed: ${cme.speed || 'N/A'} km/s`)
                 .style('visibility', 'visible')
                 .style('top', (event.pageY - 10) + 'px')
                 .style('left', (event.pageX + 10) + 'px');
