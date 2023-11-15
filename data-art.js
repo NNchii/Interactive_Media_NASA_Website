@@ -102,109 +102,102 @@ function displaySolarFlareArt(data) {
     const height = 1500;
     const centerX = width / 2;
     const centerY = height / 2;
-
-    const baseOrbitRadius = 200;
+    const baseOrbitRadius = 150;
     const orbitSpacing = 20;
-
     const svg = d3.select('#cmeOrbits').append('svg')
         .attr('width', width)
         .attr('height', height);
-    
     const defs = svg.append('defs');
 
-
-    // For the Sun
     svg.append('circle')
         .attr('class', 'sun')
         .attr('cx', centerX)
         .attr('cy', centerY)
-        .attr('r', 220);
+        .attr('r', 190);
 
     const solarArtTooltip = d3.select('body').append('div')
         .attr('class', 'SolarArtTooltip')
         .style('position', 'absolute')
-        .style('visibility', 'hidden')
-        .style('background', 'white')
-        .style('padding', '10px')
-        .style('border', '1px solid black')
-        .style('border-radius', '5px');
+        .style('visibility', 'hidden');
 
     const sunGradient = defs.append('radialGradient')
         .attr('id', 'sun-gradient')
         .attr('class', 'sun-gradient');
     sunGradient.append('stop')
         .attr('offset', '0%')
-        .attr('stop-color', 'yellow');
+        .attr('class', 'sun-gradient-inner');
     sunGradient.append('stop')
         .attr('offset', '100%')
-        .attr('stop-color', 'orange');
+        .attr('class', 'sun-gradient-outer');
     
-    // Apply gradient to the sun
     svg.select('.sun').attr('fill', 'url(#sun-gradient)');
 
-    data.sort((a, b) => a.speed - b.speed);
-
-    // Create a color scale from red to purple
+    // Color scale for orbits
     const colorScale = d3.scaleLinear()
         .domain([0, 1])
         .range(['red', 'purple'])
         .interpolate(d3.interpolateRgb);
 
-        data.forEach((cme, index) => {
-            const orbitRadius = baseOrbitRadius + index * orbitSpacing + (Math.abs(cme.longitude) + Math.abs(cme.latitude)) * 1;
-            const color = colorScale(index / data.length);
-    
-            const orbitPath = svg.append('circle')
+    // Function to get circle color based on speed
+    function getCircleColor(speed) {
+        const maxSpeed = d3.max(data, d => d.speed);
+        return d3.scaleLinear().domain([maxSpeed * 0.5, maxSpeed]).range(['red', 'orange'])(speed);
+    }
+
+    // Create orbits and moving circles
+    data.forEach((cme, index) => {
+        const orbitRadius = baseOrbitRadius + index * orbitSpacing + (Math.abs(cme.longitude) + Math.abs(cme.latitude)) * 1;
+        const orbitColor = colorScale(index / data.length);
+        const orbitPath = svg.append('circle')
             .attr('class', 'orbit')
             .attr('cx', centerX)
             .attr('cy', centerY)
             .attr('r', orbitRadius)
-            .attr('stroke', color)
-            .attr('stroke-width', 3);
-    
-        // Updated event handlers
-        orbitPath.on('mouseover', (event) => {
+            .attr('stroke', orbitColor)
+            .attr('stroke-width', 3)
+            .datum(cme);
+
+        orbitPath.on('mouseover', function(event, d) {
             d3.select(this).attr('stroke-width', 5);
-            solarArtTooltip.html(`Class: ${cme.type || 'N/A'}<br>Longitude: ${cme.longitude || 'N/A'}<br>Latitude: ${cme.latitude || 'N/A'}<br>Speed: ${cme.speed || 'N/A'} km/s`)
+            solarArtTooltip.html(`Class: ${d.type || 'N/A'}<br>Longitude: ${d.longitude || 'N/A'}<br>Latitude: ${d.latitude || 'N/A'}<br>Speed: ${d.speed || 'N/A'} km/s`)
                 .style('visibility', 'visible')
                 .style('top', (event.pageY - 10) + 'px')
                 .style('left', (event.pageX + 10) + 'px');
-        })
-        .on('mouseout', function() {
-            d3.select(this).attr('stroke-width', 2);
+        }).on('mouseout', function() {
+            d3.select(this).attr('stroke-width', 3);
             solarArtTooltip.style('visibility', 'hidden');
         });
-    
-            const movingCircle = svg.append('circle')
-                .attr('cx', centerX)
-                .attr('cy', centerY)
-                .attr('r', 5)
-                .attr('fill', 'orange');
-    
-            function animateCircle() {
-                const speedScalingFactor = 0.1; // Adjust this factor to control animation speed
-                const scaledSpeed = cme.speed * speedScalingFactor;
-                const orbitDuration = Math.max(20000 / scaledSpeed, 5000); // Ensuring a minimum duration
-                
-                movingCircle.transition()
-                        .duration(orbitDuration)
-                        .ease(d3.easeLinear)
-                        .attrTween('transform', () => {
-                        const angleScale = d3.scaleLinear()
-                            .domain([0, 1])
-                            .range([0, 2 * Math.PI]);
-                        return t => {
-                            const angle = angleScale(t);
-                            const x = orbitRadius * Math.cos(angle);
-                            const y = orbitRadius * Math.sin(angle);
-                            return `translate(${x},${y})`;
-                        };
-                    })
-                    .on('end', animateCircle);
-            }
-    
-            animateCircle();
-        });
-    
-        // ... remaining code ...
-    }
+
+        const movingCircle = svg.append('circle')
+            .attr('cx', centerX)
+            .attr('cy', centerY)
+            .attr('r', 5)
+            .attr('fill', getCircleColor(cme.speed));
+
+        function animateCircle() {
+            const minSpeed = d3.min(data, d => d.speed);
+            const maxSpeed = d3.max(data, d => d.speed);
+            const speedRange = maxSpeed - minSpeed;
+            const minDuration = 2000;
+            const maxDuration = 20000;
+            const duration = minDuration + (maxDuration - minDuration) * ((cme.speed - minSpeed) / speedRange);
+
+            movingCircle.transition()
+                .duration(duration)
+                .ease(d3.easeLinear)
+                .attrTween('transform', () => {
+                    const angleScale = d3.scaleLinear()
+                        .domain([0, 1])
+                        .range([0, 2 * Math.PI]);
+                    return t => {
+                        const angle = angleScale(t);
+                        const x = orbitRadius * Math.cos(angle);
+                        const y = orbitRadius * Math.sin(angle);
+                        return `translate(${x},${y})`;
+                    };
+                })
+                .on('end', animateCircle);
+        }
+        animateCircle();
+    });
+}
