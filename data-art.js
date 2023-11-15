@@ -31,12 +31,12 @@ async function loadSolarFlareData() {
             const data = await response.json();
 
             sessionStorage.setItem('cmeData', JSON.stringify(data));
-            displaySolarFlareArt(data); // Function to visualize the CME data
+            displaySolarFlareArt(data);
         } catch (error) {
             console.error('Error fetching CME data:', error);
         }
     } else {
-        displaySolarFlareArt(JSON.parse(cmeData)); // Function to visualize the CME data
+        displaySolarFlareArt(JSON.parse(cmeData));
     }
 }
 
@@ -132,19 +132,16 @@ function displaySolarFlareArt(data) {
     
     svg.select('.sun').attr('fill', 'url(#sun-gradient)');
 
-    // Color scale for orbits
     const colorScale = d3.scaleLinear()
         .domain([0, 1])
         .range(['red', 'purple'])
         .interpolate(d3.interpolateRgb);
 
-    // Function to get circle color based on speed
     function getCircleColor(speed) {
         const maxSpeed = d3.max(data, d => d.speed);
         return d3.scaleLinear().domain([maxSpeed * 0.5, maxSpeed]).range(['red', 'orange'])(speed);
     }
 
-    // Create orbits and moving circles
     data.forEach((cme, index) => {
         const orbitRadius = baseOrbitRadius + index * orbitSpacing + (Math.abs(cme.longitude) + Math.abs(cme.latitude)) * 1;
         const orbitColor = colorScale(index / data.length);

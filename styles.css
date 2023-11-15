@@ -862,26 +862,26 @@ article img {
 }
 
 .SolarArtTooltip {
-    background-color: rgba(0, 0, 0, 0.6); /* Black background with some transparency */
-    color: rgb(255, 255, 255); /* White text color */
+    background-color: rgba(0, 0, 0, 0.6);
+    color: rgb(255, 255, 255);
     padding: 10px;
-    border-top: 2px solid rgb(255, 187, 0); /* Blue top border */
-    border-bottom: 2px solid rgb(255, 187, 0); /* Blue bottom border */
-    border-left: none; /* No left border */
-    border-right: none; /* No right border */
+    border-top: 2px solid rgb(255, 187, 0);
+    border-bottom: 2px solid rgb(255, 187, 0);
+    border-left: none;
+    border-right: none;
     border-radius: 10px;
-    font-family: 'Poppins', sans-serif; /* Using Poppins font */
-    max-width: 200px; /* Width of the tooltip */
-    pointer-events: none; /* Prevents tooltip from interfering with mouse events */
-    z-index: 10; /* Ensures tooltip is above other elements */
+    font-family: 'Poppins', sans-serif;
+    max-width: 200px;
+    pointer-events: none;
+    z-index: 10;
 }
 
 .sun-gradient-inner {
-    stop-color: rgb(255, 51, 0); /* Darker color for the center */
+    stop-color: rgb(255, 51, 0);
 }
 
 .sun-gradient-outer {
-    stop-color: rgb(255, 136, 0); /* Lighter color towards the edge */
+    stop-color: rgb(255, 136, 0);
 }
 
 .orbit {
